@@ -31,18 +31,29 @@
 # Display the final dataframe
 #print(final_df) 
 
+#import pandas as pd
+
+#df1 = pd.read_csv(r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_0.csv')
+#df2 = pd.read_csv(r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_1.csv')  
+#df3 = pd.read_csv(r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_2.csv')
+
+#combined_df = pd.concat([df1, df2, df3])
+
+
+
+#print(combined_df)
+
 import pandas as pd
 
 df1 = pd.read_csv(r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_0.csv')
-df2 = pd.read_csv(r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_1.csv')  
+df2 = pd.read_csv(r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_1.csv')
 df3 = pd.read_csv(r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_2.csv')
 
 combined_df = pd.concat([df1, df2, df3])
 
+combined_df['sales'] = combined_df['quantity'] * combined_df['price'] 
 
-
-print(combined_df)
-
+combined_df.to_csv(r'C:\Users\Iele\Desktop\combined_sales.csv', index=False)
 
 
 
