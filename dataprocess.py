@@ -98,6 +98,6 @@ if 'product' in combined_df.columns:
         print(output_data)
 
         # Export the filtered data to a CSV file on the desktop
-        output_data.to_csv(r'C:\Users\Iele\Desktop\sales_result_edit.csv', index=False)
+        output_data.to_csv(r'C:\Users\Iele\Desktop\Quantium_task1\sales_result_edit.csv', index=False)
 
 
