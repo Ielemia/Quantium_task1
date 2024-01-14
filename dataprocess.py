@@ -43,17 +43,74 @@
 
 #print(combined_df)
 
+#import pandas as pd
+
+#df1 = pd.read_csv(r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_0.csv')
+#df2 = pd.read_csv(r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_1.csv')
+#df3 = pd.read_csv(r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_2.csv')
+
+#combined_df = pd.concat([df1, df2, df3])
+
+#combined_df['sales'] = combined_df['quantity'] * combined_df['price'] 
+
+#combined_df.to_csv(r'C:\Users\Iele\Desktop\combined_sales.csv', index=False)
+#import pandas as pd
+
+#df1 = pd.read_csv(r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_0.csv')
+#df2 = pd.read_csv(r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_1.csv')
+#df3 = pd.read_csv(r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_2.csv')
+
+#combined_df = pd.concat([df1, df2, df3])
+
+#combined_df['sales'] = combined_df['quantity'] * combined_df['price']
+#print(combined_df)
+
+
+# Leave date and region as is
+
+
 import pandas as pd
 
-df1 = pd.read_csv(r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_0.csv')
-df2 = pd.read_csv(r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_1.csv')
-df3 = pd.read_csv(r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_2.csv')
+# Assuming your data is stored in CSV files named 'daily_sales_data_0.csv', 'daily_sales_data_1.csv', and 'daily_sales_data_2.csv'
+file_paths = [
+    r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_0.csv',
+    r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_1.csv',
+    r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_2.csv'
+]
 
-combined_df = pd.concat([df1, df2, df3])
+# Read each CSV file into a separate DataFrame
+dfs = [pd.read_csv(file_path) for file_path in file_paths]
 
-combined_df['sales'] = combined_df['quantity'] * combined_df['price'] 
+# Concatenate the DataFrames into a single DataFrame
+combined_df = pd.concat(dfs, ignore_index=True)
 
-combined_df.to_csv(r'C:\Users\Iele\Desktop\combined_sales.csv', index=False)
+# Task 1: Filter rows where the 'product' is 'pink morsel'
+if 'product' in combined_df.columns:
+    # Use str.lower() to make the comparison case-insensitive
+    # Use str.strip() to remove leading and trailing whitespaces
+    filtered_data = combined_df[combined_df['product'].str.strip().str.lower() == 'pink morsel']
+
+    # Task 2: Create a new column 'sales' by multiplying 'quantity' and 'price'
+    if not filtered_data.empty:
+        filtered_data['sales'] = filtered_data['quantity'] * filtered_data['price']
+
+        # Display the resulting DataFrame
+        print(filtered_data)
+    else:
+        print("No rows found with 'pink morsel' in the 'product' column.")
+else:
+    print("Column 'product' not found in the DataFrame.")
+
+
+# Export filtered data to CSV
+desktop_path = r'C:\Users\Iele\Desktop' 
+csv_file = 'filtered_data.csv'
+
+full_path = desktop_path + '\\' + csv_file
+
+filtered_data.to_csv(full_path, index=False)
+
+print('Filtered data exported to CSV: {}'.format(full_path))
 
 
 
