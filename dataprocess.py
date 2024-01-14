@@ -68,49 +68,36 @@
 
 # Leave date and region as is
 
-
 import pandas as pd
 
-# Assuming your data is stored in CSV files named 'daily_sales_data_0.csv', 'daily_sales_data_1.csv', and 'daily_sales_data_2.csv'
-file_paths = [
-    r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_0.csv',
-    r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_1.csv',
-    r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_2.csv'
-]
-
 # Read each CSV file into a separate DataFrame
-dfs = [pd.read_csv(file_path) for file_path in file_paths]
+df1 = pd.read_csv(r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_0.csv')
+df2 = pd.read_csv(r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_1.csv')
+df3 = pd.read_csv(r'C:\Users\Iele\Desktop\Quantium_task1\daily_sales_data_2.csv')
 
 # Concatenate the DataFrames into a single DataFrame
-combined_df = pd.concat(dfs, ignore_index=True)
+combined_df = pd.concat([df1, df2, df3], ignore_index=True)
 
-# Task 1: Filter rows where the 'product' is 'pink morsel'
+# Check if the 'product' column is present in the DataFrame
 if 'product' in combined_df.columns:
-    # Use str.lower() to make the comparison case-insensitive
-    # Use str.strip() to remove leading and trailing whitespaces
+    # Task 1: Filter rows where the 'product' is 'pink morsel'
     filtered_data = combined_df[combined_df['product'].str.strip().str.lower() == 'pink morsel']
 
-    # Task 2: Create a new column 'sales' by multiplying 'quantity' and 'price'
+    # Task 2: Create a new column 'sales' by multiplying 'quantity' and cleaned 'price'
     if not filtered_data.empty:
-        filtered_data['sales'] = filtered_data['quantity'] * filtered_data['price']
+        # Remove the space at the end of 'price' values and convert to float
+        filtered_data['price'] = filtered_data['price'].str.rstrip().apply(lambda x: float(x.replace('$', '')))
+
+        # Calculate 'sales' as integer
+        filtered_data['sales'] = (filtered_data['quantity'] * filtered_data['price']).astype(int)
 
         # Display the resulting DataFrame
         print(filtered_data)
-    else:
-        print("No rows found with 'pink morsel' in the 'product' column.")
-else:
-    print("Column 'product' not found in the DataFrame.")
+
+# Export the filtered data to a CSV file on the desktop (outside the inner 'if' block)
+filtered_data.to_csv(r'C:\Users\Iele\Desktop\sales_result.csv', index=False)
 
 
-# Export filtered data to CSV
-desktop_path = r'C:\Users\Iele\Desktop' 
-csv_file = 'filtered_data.csv'
-
-full_path = desktop_path + '\\' + csv_file
-
-filtered_data.to_csv(full_path, index=False)
-
-print('Filtered data exported to CSV: {}'.format(full_path))
 
 
 
