@@ -95,7 +95,7 @@ if 'product' in combined_df.columns:
         print(filtered_data)
 
 # Export the filtered data to a CSV file on the desktop (outside the inner 'if' block)
-filtered_data.to_csv(r'C:\Users\Iele\Desktop\sales_result.csv', index=False)
+filtered_data.to_csv(r'C:\Users\Iele\Desktop\Quantium_task1\sales_result.csv', index=False)
 
 
 
