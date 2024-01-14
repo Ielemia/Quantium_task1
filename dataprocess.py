@@ -91,15 +91,13 @@ if 'product' in combined_df.columns:
         # Calculate 'sales' as integer
         filtered_data['sales'] = (filtered_data['quantity'] * filtered_data['price']).astype(int)
 
+        # Task 3: Select relevant columns ('sales', 'date', 'region') for the output file
+        output_data = filtered_data[['sales', 'date', 'region']]
+
         # Display the resulting DataFrame
-        print(filtered_data)
+        print(output_data)
 
-# Export the filtered data to a CSV file on the desktop (outside the inner 'if' block)
-filtered_data.to_csv(r'C:\Users\Iele\Desktop\Quantium_task1\sales_result.csv', index=False)
-
-
-
-
-
+        # Export the filtered data to a CSV file on the desktop
+        output_data.to_csv(r'C:\Users\Iele\Desktop\sales_result_edit.csv', index=False)
 
 
