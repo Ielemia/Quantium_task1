@@ -14,8 +14,6 @@ app.layout = html.Div(style={'backgroundColor': '#f4f4f4', 'padding': '20px'}, c
 
     html.H1("Soul Food Sales Dashboard", id='header', style={'color': '#333', 'textAlign': 'center', 'fontFamily': 'Arial, sans-serif'}),
     
-    dcc.Graph(id="sales-graph"),
-    
     html.Div([
         dcc.RadioItems(
             id='region-radio', 
@@ -25,6 +23,8 @@ app.layout = html.Div(style={'backgroundColor': '#f4f4f4', 'padding': '20px'}, c
             style={'margin': '20px 0', 'textAlign': 'center'}
         ),
     ]),
+    
+    dcc.Graph(id="sales-graph"),
 ])
 
 @app.callback(
