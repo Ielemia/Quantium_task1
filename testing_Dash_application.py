@@ -7,7 +7,6 @@ class TestDashApp(unittest.TestCase):
         self.assertIsNotNone(app.layout['header'])
 
         
-
     def test_visualization_presence(self):
         self.assertIsNotNone(app.layout['sales-graph'])
 
