@@ -15,4 +15,4 @@ class TestDashApp(unittest.TestCase):
         self.assertIsNotNone(app.layout['region-radio'])
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main() 
