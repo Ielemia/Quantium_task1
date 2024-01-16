@@ -13,37 +13,47 @@ app = dash.Dash(__name__)
 
 # Define the layout of the app
 app.layout = html.Div([
-    dcc.RadioItems(
-        id='region-radio',
-        options=[
-            {'label': 'North', 'value': 'north'},
-            {'label': 'East', 'value': 'east'},
-            {'label': 'South', 'value': 'south'},
-            {'label': 'West', 'value': 'west'},
-            {'label': 'All', 'value': 'all'}
-        ],
-        value='all',
-        labelStyle={'display': 'block'}
+    html.Header(
+        id='header',
+        style={'color': 'white', 'background-color': 'lightblue'}
     ),
-    dcc.Graph(
-        id='line-plot',
-    )
-])
+    html.Div([
+        html.Div([
+            dcc.Dropdown(
+                id='region-dropdown',
+                options=[
+                    {'label': 'Please select dates to compare sales', 'value': ''},
+                ] + [
+                    {'label': region, 'value': region} for region in df['region'].unique()
+                ],
+                value='',
+                multi=False,
+                style={'color': 'black', 'background-color': 'lightgrey', 'label': {'color': 'black', 'background-color': 'lightgrey', 'font-weight': 'bold', 'font-size': '1.2em', 'padding': '0 10px'}}
+            )
+        ], style={'width': '50%', 'display': 'inline-block'}),
+        html.Div([
+            dcc.Graph(
+                id='line-plot',
+                style={'background-color': 'lightgrey'}
+            )
+        ], style={'width': '50%', 'display': 'inline-block'})
+    ], style={'background-color': 'lightgrey'})
+], style={'background-color': 'lightgrey'})
 
 # Define callback to update line plot based on selected region
 @app.callback(
     Output('line-plot', 'figure'),
-    [Input('region-radio', 'value')]
+    [Input('region-dropdown', 'value')]
 )
 def update_line_plot(selected_region):
-    if selected_region == 'all':
-        filtered_df = df
-    else:
-        filtered_df = df[df['region'] == selected_region]
-
+    if not selected_region:
+        return {}
+    
+    filtered_df = df[df['region'] == selected_region]
+    
     # Create line plot using Plotly Express
-    line_figure = px.line(filtered_df, x='date', y='sales', color='region', title=f'Sales for {selected_region.capitalize()} Region')
-
+    line_figure = px.line(filtered_df, x='date', y='sales', title=f'Sales for {selected_region}')
+    
     return line_figure
 
 # Run the app
