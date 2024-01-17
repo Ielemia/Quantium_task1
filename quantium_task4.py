@@ -7,6 +7,7 @@ from dash.dependencies import Input, Output
 # Load data
 df = pd.read_csv("C:/Users/Iele/Desktop/Quantium_task1/sales_result_edit.csv") 
 
+#how to create a dash app according to the sales_result_edit.csv?
 # Create Dash app
 app = dash.Dash(__name__)
 
